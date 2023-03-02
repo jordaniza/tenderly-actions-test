@@ -1,0 +1,16 @@
+account_id: ""
+actions:
+  jordaniza/project:
+    runtime: v2
+    sources: actions
+    specs:
+      first-action:
+        description: I wrote this to test the YAML Spec.
+        function: blockNumberLogger:logger
+        trigger:
+          type: block
+          block:
+            network:
+              - 1
+            blocks: 10
+project_slug: ""
