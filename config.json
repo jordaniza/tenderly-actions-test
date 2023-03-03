@@ -1,0 +1,14 @@
+{
+  "contracts": [
+    {
+      "name": "Admin",
+      "address": "0x0008bb335a71A97AE89CF99388d7BE70d7Ef4660",
+      "events": ["AdminSet"]
+    },
+    {
+      "name": "TokenLocker",
+      "address": "0x1"
+    }
+  ],
+  "network": 43113
+}
