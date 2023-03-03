@@ -1,5 +1,10 @@
-import { TestBlockEvent, TestRuntime } from "@tenderly/actions-test";
+import {
+  TestBlockEvent,
+  TestRuntime,
+  TestTransactionEvent,
+} from "@tenderly/actions-test";
 import { logger } from "../actions/blockNumberLogger";
+import { newAdmin } from "../actions/onAdminChange";
 
 /*
  * Running Web3 Actions code locally.
@@ -24,5 +29,17 @@ describe("Testing the runtime", () => {
         `Logged Block Number ${block.blockNumber}`
       );
     }
+  });
+
+  it("should notify the admin changed event", async () => {
+    const event = new TestTransactionEvent();
+    event.from = "TEST";
+    if (!process.env.DISCORD_WEBHOOK) throw new Error("No webhook");
+    testRuntime.context.secrets.put(
+      "discord.jordanWebhook",
+      process.env.DISCORD_WEBHOOK
+    );
+
+    await testRuntime.execute(newAdmin, event);
   });
 });
