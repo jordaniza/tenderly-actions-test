@@ -6,48 +6,6 @@ actions:
     runtime: v2
     sources: actions
     specs:
-      StakingManager-AuxoApproval:
-        description: "Activated on AuxoApproval"
-        function: StakingManager:handleAuxoApproval
-        trigger:
-          type: transaction
-          transaction:
-            status:
-              - mined
-            filters:
-              - network: 43113
-                eventEmitted:
-                  contract:
-                    address: "0xBb6e537776b22ADbC31497434c8Bf62410125af6"
-                  name: AuxoApproval
-      StakingManager-Initialized:
-        description: "Activated on Initialized"
-        function: StakingManager:handleInitialized
-        trigger:
-          type: transaction
-          transaction:
-            status:
-              - mined
-            filters:
-              - network: 43113
-                eventEmitted:
-                  contract:
-                    address: "0xBb6e537776b22ADbC31497434c8Bf62410125af6"
-                  name: Initialized
-      StakingManager-RepresentativeChanged:
-        description: "Activated on RepresentativeChanged"
-        function: StakingManager:handleRepresentativeChanged
-        trigger:
-          type: transaction
-          transaction:
-            status:
-              - mined
-            filters:
-              - network: 43113
-                eventEmitted:
-                  contract:
-                    address: "0xBb6e537776b22ADbC31497434c8Bf62410125af6"
-                  name: RepresentativeChanged
       StakingManager-RoleAdminChanged:
         description: "Activated on RoleAdminChanged"
         function: StakingManager:handleRoleAdminChanged
@@ -60,7 +18,7 @@ actions:
               - network: 43113
                 eventEmitted:
                   contract:
-                    address: "0xBb6e537776b22ADbC31497434c8Bf62410125af6"
+                    address: "0x18c843b28536847eb0d9a1f995ad126396e966be"
                   name: RoleAdminChanged
       StakingManager-RoleGranted:
         description: "Activated on RoleGranted"
@@ -74,7 +32,7 @@ actions:
               - network: 43113
                 eventEmitted:
                   contract:
-                    address: "0xBb6e537776b22ADbC31497434c8Bf62410125af6"
+                    address: "0x18c843b28536847eb0d9a1f995ad126396e966be"
                   name: RoleGranted
       StakingManager-RoleRevoked:
         description: "Activated on RoleRevoked"
@@ -88,5 +46,5 @@ actions:
               - network: 43113
                 eventEmitted:
                   contract:
-                    address: "0xBb6e537776b22ADbC31497434c8Bf62410125af6"
+                    address: "0x18c843b28536847eb0d9a1f995ad126396e966be"
                   name: RoleRevoked

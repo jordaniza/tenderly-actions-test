@@ -3,7 +3,8 @@
     {
       "name": "StakingManager",
       "address": "0xBb6e537776b22ADbC31497434c8Bf62410125af6",
-      "proxyAddress": "0x18c843b28536847eb0d9a1f995ad126396e966be"
+      "proxyAddress": "0x18c843b28536847eb0d9a1f995ad126396e966be",
+      "events": ["RoleGranted", "RoleRevoked", "RoleAdminChanged"]
     }
   ],
   "network": 43113

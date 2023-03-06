@@ -1,3 +1,4 @@
+import { Contract } from "./config";
 import SampleABI from "./SampleABI.json";
 type ABI = (typeof SampleABI)["abi"];
 
@@ -52,7 +53,7 @@ export const generateYAMLFunctions = ({
 }: {
   events: ABI;
   network: number;
-  contract: { name: string; address: string };
+  contract: Contract;
 }) =>
   events.reduce((acc, event) => {
     return (acc += insert({
@@ -61,6 +62,7 @@ export const generateYAMLFunctions = ({
       address: contract.address,
       contractName: contract.name,
       event: event.name!,
+      proxyAddress: contract?.proxyAddress,
     }));
   }, "");
 
