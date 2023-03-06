@@ -1,4 +1,4 @@
-import SampleABI from "../actions/artifacts/TokenLocker.json";
+import SampleABI from "./generate/SampleABI.json";
 import fs from "fs/promises";
 import {
   generateFullYAML,
@@ -6,15 +6,16 @@ import {
 } from "./generate/generate-yaml";
 import { generateFunctions } from "./generate/generate-fn";
 import { Contract, loadFromConfig } from "./generate/config";
+import { fetchAllAbisFromConfig, HandledABI } from "./generate/fetchAbi";
 
 const generate = async (contract: Contract, network: number) => {
   let data: typeof SampleABI;
   try {
     data = JSON.parse(
-      await fs.readFile(`./actions/artifacts/${contract.name}.json`, "utf-8")
+      await fs.readFile(`./artifacts/${contract.name}.json`, "utf-8")
     );
   } catch (e) {
-    throw new Error("No ABI for contract" + contract.name);
+    throw new Error("No ABI for contract " + contract.name);
   }
 
   const events = data.abi
@@ -42,13 +43,32 @@ const popSlug = async (contract: Contract) => {
   return slug;
 };
 
+async function writeABIs(abis: HandledABI[]) {
+  // if the artifacts folder doesn't exist, create it
+  try {
+    await fs.access("./artifacts");
+  } catch (e) {
+    await fs.mkdir("./artifacts");
+  }
+
+  const write = async ({ abi, name }: HandledABI) =>
+    await fs.writeFile(
+      `./artifacts/${name}.json`,
+      JSON.stringify({ abi: JSON.parse(abi) }, null, 2)
+    );
+  await Promise.all(abis.map(write));
+}
+
 async function generateAll() {
   // load config
-  const { contracts, network } = await loadFromConfig();
+  const config = await loadFromConfig();
+  const { contracts, network } = config;
+  const ABIs = await fetchAllAbisFromConfig(config);
 
   // clean and recreate generated folder
   await fs.rm("./generated", { recursive: true, force: true });
   await fs.mkdir("./generated");
+  await writeABIs(ABIs);
 
   // generate the functions and yaml fragments
   await Promise.all(contracts.map((contract) => generate(contract, network)));

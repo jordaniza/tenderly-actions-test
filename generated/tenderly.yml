@@ -18,7 +18,7 @@ actions:
           - network: 43113
               eventEmitted:
               contract:
-                  address: "0x0008bb335a71A97AE89CF99388d7BE70d7Ef4660"
+                  address: "0x9901d0111712b1e9962275c313ca67472ecf7afb"
               name: AdminSet
     TokenLocker-BoostedToMax:
       description: "Activated on BoostedToMax"
