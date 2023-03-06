@@ -26,20 +26,20 @@ function insert({
   event: string;
 }): string {
   const fragment = `
-    ${contractName}-${name}:
-      description: "Activated on ${event}"
-      function: ${contractName}:handle${event}
-      trigger:
-      type: transaction
-      transaction:
-          status:
-          - mined
-          filters:
-          - network: ${network}
-              eventEmitted:
-              contract:
-                  address: "${address}"
-              name: ${event}`;
+      ${contractName}-${name}:
+        description: "Activated on ${event}"
+        function: ${contractName}:handle${event}
+        trigger:
+          type: transaction
+          transaction:
+            status:
+              - mined
+            filters:
+              - network: ${network}
+                eventEmitted:
+                  contract:
+                    address: "${address}"
+                  name: ${event}`;
   return fragment;
 }
 

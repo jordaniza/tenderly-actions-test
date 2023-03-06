@@ -1,0 +1,22 @@
+account_id: ""
+actions:
+  jordaniza/project:
+    runtime: v2
+    sources: actions
+    specs:
+      Auxo-Approval:
+        description: "Activated on Approval"
+        function: Auxo:handleApproval
+        trigger:
+          type: transaction
+          transaction:
+            status:
+              - mined
+            filters:
+              - network: 43113
+                eventEmitted:
+                  contract:
+                    address: "0xFE5AF8235053D5ee46B4f9E042aE390bCfF4Ad2d"
+                  name: Approval
+
+project_slug: ""

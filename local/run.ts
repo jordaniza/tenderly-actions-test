@@ -29,17 +29,17 @@ const generate = async (contract: Contract, network: number) => {
   const functions = generateFunctions(events);
 
   await Promise.all([
-    fs.writeFile(`./generated/tenderly-${contract.name}.yml`, yaml),
+    fs.writeFile(`./generated/tenderly-${contract.name}.yaml`, yaml),
     fs.writeFile(`./generated/${contract.name}.ts`, functions),
   ]);
 };
 
 const popSlug = async (contract: Contract) => {
   const slug = await fs.readFile(
-    `./generated/tenderly-${contract.name}.yml`,
+    `./generated/tenderly-${contract.name}.yaml`,
     "utf-8"
   );
-  await fs.rm(`./generated/tenderly-${contract.name}.yml`);
+  await fs.rm(`./generated/tenderly-${contract.name}.yaml`);
   return slug;
 };
 
@@ -60,6 +60,9 @@ async function writeABIs(abis: HandledABI[]) {
 }
 
 async function generateAll() {
+  if (!process.env.TENDERLY_PROJECT) {
+    throw new Error("TENDERLY_PROJECT not set");
+  }
   // load config
   const config = await loadFromConfig();
   const { contracts, network } = config;
@@ -75,8 +78,11 @@ async function generateAll() {
   const slugs = await Promise.all(contracts.map(popSlug));
 
   // concatenate into a single file and write
-  const full = generateFullYAML({ slugs, project: "jordaniza/project" });
-  await fs.writeFile(`./generated/tenderly.yml`, full);
+  const full = generateFullYAML({
+    slugs,
+    project: process.env.TENDERLY_PROJECT,
+  });
+  await fs.writeFile(`./generated/tenderly.yaml`, full);
 }
 
 generateAll().then(() => process.exit(0));

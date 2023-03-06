@@ -1,13 +1,24 @@
 {
   "contracts": [
     {
-      "name": "Admin",
-      "address": "0x9901d0111712b1e9962275c313ca67472ecf7afb",
-      "events": ["AdminSet"]
+      "name": "Auxo",
+      "address": "0xFE5AF8235053D5ee46B4f9E042aE390bCfF4Ad2d"
     },
     {
-      "name": "TokenLocker",
-      "address": "0x1"
+      "name": "ARV",
+      "address": "0xdd6532fA9685CFAeAfF221Fe1A43cFbfd0bbBB46"
+    },
+    {
+      "name": "TimelockController",
+      "address": "0x3Ed5B1E3d41c09D4785276A284cEc3ACb51E9d55"
+    },
+    {
+      "name": "AuxoGovernor",
+      "address": "0x802Ec6cEB33AC20d14D6d5D14Fe785ab15735381"
+    },
+    {
+      "name": "StakingManager",
+      "address": "0xBb6e537776b22ADbC31497434c8Bf62410125af6"
     }
   ],
   "network": 43113

@@ -3,7 +3,7 @@ type ABI = (typeof SampleABI)["abi"];
 
 const functionImports = `
 import { ActionFn, Context, Event, TransactionEvent } from "@tenderly/actions";
-import { notifyDiscord } from "../local/generate/common";
+import { notifyDiscord } from "./common";
 `;
 
 function tsFunction({ event }: { event: string }) {

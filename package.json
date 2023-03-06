@@ -14,7 +14,8 @@
     "typechain": "^8.1.1"
   },
   "scripts": {
-    "local": "ts-node local/run.ts",
+    "generate": "ts-node local/run.ts",
+    "config": "ts-node broadcast-config.ts",
     "test": "jest",
     "typechain": "typechain --target ethers-v5 --out-dir actions/types 'actions/artifacts/*.json'"
   }
