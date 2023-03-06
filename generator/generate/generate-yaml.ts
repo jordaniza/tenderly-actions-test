@@ -18,12 +18,14 @@ function insert({
   address,
   event,
   contractName,
+  proxyAddress,
 }: {
   name: string;
   network: number;
   address: string;
   contractName: string;
   event: string;
+  proxyAddress?: string;
 }): string {
   const fragment = `
       ${contractName}-${name}:
@@ -38,7 +40,7 @@ function insert({
               - network: ${network}
                 eventEmitted:
                   contract:
-                    address: "${address}"
+                    address: "${proxyAddress ?? address}"
                   name: ${event}`;
   return fragment;
 }

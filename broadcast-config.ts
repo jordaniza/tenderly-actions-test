@@ -1,9 +1,11 @@
 import fs from "fs/promises";
 import dotenv from "dotenv";
 
+// change if needed
 import Broadcast from "./latest.json";
-import { Config } from "./local/generate/config";
+import { Config } from "./generator/generate/config";
 
+// convert foundry broadcast log to a config file
 function toConfig(network: number): Config {
   const contracts: any = Broadcast.transactions
     .map((tx) => {

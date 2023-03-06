@@ -51,9 +51,9 @@ Read the config file and generate the tenderly code and yaml files:
 npm run generate
 ```
 
-Generated files will be placed in the `generated` folder and ABIs will be attempted to be downloaded from etherscan and saved in the `artifacts` folder. If the file can't be downloaded, you can manually add the ABIs to the `artifacts` folder. All contracts must have an ABI file in the `artifacts` folder before we can generate the code.
+Generated files will be placed in the `actions` folder (and saved in the `generated` folder), ABIs will be attempted to be downloaded from etherscan and saved in the `artifacts` folder. If the file can't be downloaded, you can manually add the ABIs to the `artifacts` folder. All contracts must have an ABI file in the `artifacts` folder before we can generate the code.
 
-Copy the `.ts` files into the `actions` folder and move the `tenderly.yaml` file to the project root. You can then execute the `deploy.sh` script to deploy the actions to tenderly.
+A `tenderly.yaml` file will be generated in the root of the project. This file will be used to upload the actions to tenderly.
 
 If you use [foundry](getfoundry.sh), then you can use the `broadcast-config.ts` file to generate a config starter from the foundry broadcast logs. You'll probably need to edit this to remove nulls and adjust proxies.
 

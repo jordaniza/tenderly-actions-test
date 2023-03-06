@@ -9,6 +9,7 @@ export type Contract = {
   name: string;
   address: string;
   events?: string[];
+  proxyAddress?: string;
 };
 
 export async function loadFromConfig(): Promise<Config> {

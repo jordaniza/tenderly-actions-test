@@ -3,3 +3,6 @@ node_modules
 .env
 actions/types
 actions/artifacts
+generated
+saved
+latest.json

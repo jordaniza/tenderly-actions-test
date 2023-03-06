@@ -34,6 +34,7 @@ const generate = async (contract: Contract, network: number) => {
   ]);
 };
 
+// combine slugs to one file then delete the evidence
 const popSlug = async (contract: Contract) => {
   const slug = await fs.readFile(
     `./generated/tenderly-${contract.name}.yaml`,
@@ -59,6 +60,21 @@ async function writeABIs(abis: HandledABI[]) {
   await Promise.all(abis.map(write));
 }
 
+/// copy utility functions
+async function copyCommon() {
+  await fs.copyFile("./generator/generate/common.ts", "./generated/common.ts");
+}
+
+async function copyTSFiles() {
+  const files = await fs.readdir("./generated");
+  const promises = [];
+  for (const file of files) {
+    if (file.endsWith(".ts"))
+      promises.push(fs.copyFile(`./generated/${file}`, `./actions/${file}`));
+  }
+  await Promise.all(promises);
+}
+
 async function generateAll() {
   if (!process.env.TENDERLY_PROJECT) {
     throw new Error("TENDERLY_PROJECT not set");
@@ -75,6 +91,7 @@ async function generateAll() {
 
   // generate the functions and yaml fragments
   await Promise.all(contracts.map((contract) => generate(contract, network)));
+  await copyCommon();
   const slugs = await Promise.all(contracts.map(popSlug));
 
   // concatenate into a single file and write
@@ -83,6 +100,12 @@ async function generateAll() {
     project: process.env.TENDERLY_PROJECT,
   });
   await fs.writeFile(`./generated/tenderly.yaml`, full);
+
+  // replace files in actions
+  await copyTSFiles();
+
+  // copy the tenderly file
+  await fs.copyFile("./generated/tenderly.yaml", "./tenderly.yaml");
 }
 
 generateAll().then(() => process.exit(0));
