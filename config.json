@@ -1,10 +1,70 @@
 {
-  "contracts": [
+  "actions": [
     {
-      "name": "StakingManager",
-      "address": "0xBb6e537776b22ADbC31497434c8Bf62410125af6",
-      "proxyAddress": "0x18c843b28536847eb0d9a1f995ad126396e966be",
-      "events": ["RoleGranted", "RoleRevoked", "RoleAdminChanged"]
+      "name": "trackRoleChanges",
+      "listeners": [
+        {
+          "name": "StakingManager",
+          "address": "0xBb6e537776b22ADbC31497434c8Bf62410125af6",
+          "proxyAddress": "0x18c843b28536847eb0d9a1f995ad126396e966be",
+          "events": ["RoleGranted", "RoleRevoked", "RoleAdminChanged"]
+        },
+        {
+          "name": "Auxo",
+          "address": "0xFE5AF8235053D5ee46B4f9E042aE390bCfF4Ad2d",
+          "events": ["RoleGranted", "RoleRevoked", "RoleAdminChanged"]
+        },
+        {
+          "name": "TimelockController",
+          "address": "0x3Ed5B1E3d41c09D4785276A284cEc3ACb51E9d55",
+          "events": ["RoleGranted", "RoleRevoked", "RoleAdminChanged"]
+        },
+        {
+          "name": "TokenLocker",
+          "address": "0x57b2828E3F649b5Bd5D338478fc7d86d03F53E66",
+          "proxyAddress": "0xf52C4d4f80f570FfdA7cb4ee1476125fbCc0Fe3c",
+          "events": ["RoleGranted", "RoleRevoked", "RoleAdminChanged"]
+        }
+      ]
+    },
+    {
+      "name": "trackAdminChanges",
+      "listeners": [
+        {
+          "name": "PRV",
+          "address": "0x3B3844024353801C993Fabedbb2EC9624B2238BC",
+          "events": ["EntryFeeSet", "FeeBeneficiarySet", "GovernorSet"]
+        },
+        {
+          "name": "TokenLocker",
+          "address": "0x57b2828E3F649b5Bd5D338478fc7d86d03F53E66",
+          "proxyAddress": "0xf52C4d4f80f570FfdA7cb4ee1476125fbCc0Fe3c",
+          "events": ["MinLockAmountChanged", "WhitelistedChanged", "EjectBufferUpdated", "PRVAddressChanged"]
+        }
+      ]
+    },
+    {
+      "name": "trackFunctionReverts",
+      "listeners": [
+        {
+          "name": "StakingManager",
+          "address": "0xBb6e537776b22ADbC31497434c8Bf62410125af6",
+          "proxyAddress": "0x18c843b28536847eb0d9a1f995ad126396e966be"
+        },
+        {
+          "name": "Auxo",
+          "address": "0xFE5AF8235053D5ee46B4f9E042aE390bCfF4Ad2d"
+        },
+        {
+          "name": "TimelockController",
+          "address": "0x3Ed5B1E3d41c09D4785276A284cEc3ACb51E9d55"
+        },
+        {
+          "name": "TokenLocker",
+          "address": "0x57b2828E3F649b5Bd5D338478fc7d86d03F53E66",
+          "proxyAddress": "0xf52C4d4f80f570FfdA7cb4ee1476125fbCc0Fe3c"
+        }
+      ]
     }
   ],
   "network": 43113

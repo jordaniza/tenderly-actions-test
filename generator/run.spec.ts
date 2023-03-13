@@ -1,10 +1,5 @@
-import {
-  TestBlockEvent,
-  TestRuntime,
-  TestTransactionEvent,
-} from "@tenderly/actions-test";
-import { logger } from "../actions/blockNumberLogger";
-import { newAdmin } from "../actions/onAdminChange";
+import { TestBlockEvent, TestRuntime, TestTransactionEvent } from "@tenderly/actions-test";
+import { trackRoleChanges } from "../actions/RoleChange";
 
 /*
  * Running Web3 Actions code locally.
@@ -18,28 +13,14 @@ describe("Testing the runtime", () => {
     testRuntime = new TestRuntime();
   });
 
-  it("should run the logger", async () => {
-    const logSpy = jest.spyOn(console, "log");
-
-    const block = new TestBlockEvent();
-    for (let i = 0; i < 10; i++) {
-      block.blockNumber++;
-      await testRuntime.execute(logger, block);
-      expect(logSpy).toHaveBeenCalledWith(
-        `Logged Block Number ${block.blockNumber}`
-      );
-    }
-  });
-
   it("should notify the admin changed event", async () => {
     const event = new TestTransactionEvent();
     event.from = "TEST";
+    event.input =
+      "0xd547741f29944e936a0f6e1cbaa227df218d7d6025c2a2785db840e42a3425f24e9e68ac000000000000000000000000f52c4d4f80f570ffda7cb4ee1476125fbcc0fe3c";
     if (!process.env.DISCORD_WEBHOOK) throw new Error("No webhook");
-    testRuntime.context.secrets.put(
-      "discord.jordanWebhook",
-      process.env.DISCORD_WEBHOOK
-    );
+    testRuntime.context.secrets.put("discord.jordanWebhook", process.env.DISCORD_WEBHOOK);
 
-    await testRuntime.execute(newAdmin, event);
+    await testRuntime.execute(trackRoleChanges, event);
   });
 });

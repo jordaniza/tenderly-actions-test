@@ -22,38 +22,9 @@ EXPLORER_API_BASE_URL=https://api.etherscan.io/api
 NETWORK_ID=43113
 ```
 
-To use the generator, create a config file in the root of the project `config.json`. The config file should be a JSON file with the following structure:
+Actions files should be placed in the `actions` folder ABIs will are saved in the `artifacts` folder. `npm run generate` can create some boilerplate for you and fetch ABIs, or you can manually add the ABIs to the `artifacts` folder.
 
-```json
-{
-  "contracts": [
-    {
-      "name": "Auxo",
-      "address": "0xFE5AF8235053D5ee46B4f9E042aE390bCfF4Ad2d",
-      "events": ["Transfer", "Approval"]
-    },
-    {
-      "name": "ARV",
-      "address": "0xdd6532fA9685CFAeAfF221Fe1A43cFbfd0bbBB46"
-    }
-  ],
-  "network": 43113
-}
-```
-
-`events` is optional, if not provided, all events will be used.
-
-## Running
-
-Read the config file and generate the tenderly code and yaml files:
-
-```
-npm run generate
-```
-
-Generated files will be placed in the `actions` folder (and saved in the `generated` folder), ABIs will be attempted to be downloaded from etherscan and saved in the `artifacts` folder. If the file can't be downloaded, you can manually add the ABIs to the `artifacts` folder. All contracts must have an ABI file in the `artifacts` folder before we can generate the code.
-
-A `tenderly.yaml` file will be generated in the root of the project. This file will be used to upload the actions to tenderly.
+A `tenderly.yaml` file must be in the root of the project. This file will be used to upload the actions to tenderly.
 
 If you use [foundry](getfoundry.sh), then you can use the `broadcast-config.ts` file to generate a config starter from the foundry broadcast logs. You'll probably need to edit this to remove nulls and adjust proxies.
 

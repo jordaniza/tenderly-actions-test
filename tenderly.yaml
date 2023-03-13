@@ -6,23 +6,9 @@ actions:
     runtime: v2
     sources: actions
     specs:
-      StakingManager-RoleAdminChanged:
-        description: "Activated on RoleAdminChanged"
-        function: StakingManager:handleRoleAdminChanged
-        trigger:
-          type: transaction
-          transaction:
-            status:
-              - mined
-            filters:
-              - network: 43113
-                eventEmitted:
-                  contract:
-                    address: "0x18c843b28536847eb0d9a1f995ad126396e966be"
-                  name: RoleAdminChanged
-      StakingManager-RoleGranted:
-        description: "Activated on RoleGranted"
-        function: StakingManager:handleRoleGranted
+      trackRoleChanges:
+        description: tracking RoleGranted, RoleRevoked, RoleAdminChanged for 4 contracts
+        function: RoleChange:trackRoleChanges
         trigger:
           type: transaction
           transaction:
@@ -34,9 +20,64 @@ actions:
                   contract:
                     address: "0x18c843b28536847eb0d9a1f995ad126396e966be"
                   name: RoleGranted
-      StakingManager-RoleRevoked:
-        description: "Activated on RoleRevoked"
-        function: StakingManager:handleRoleRevoked
+              - network: 43113
+                eventEmitted:
+                  contract:
+                    address: "0x18c843b28536847eb0d9a1f995ad126396e966be"
+                  name: RoleRevoked
+              - network: 43113
+                eventEmitted:
+                  contract:
+                    address: "0x18c843b28536847eb0d9a1f995ad126396e966be"
+                  name: RoleAdminChanged
+              - network: 43113
+                eventEmitted:
+                  contract:
+                    address: "0xfe5af8235053d5ee46b4f9e042ae390bcff4ad2d"
+                  name: RoleGranted
+              - network: 43113
+                eventEmitted:
+                  contract:
+                    address: "0xfe5af8235053d5ee46b4f9e042ae390bcff4ad2d"
+                  name: RoleRevoked
+              - network: 43113
+                eventEmitted:
+                  contract:
+                    address: "0xfe5af8235053d5ee46b4f9e042ae390bcff4ad2d"
+                  name: RoleAdminChanged
+              - network: 43113
+                eventEmitted:
+                  contract:
+                    address: "0x3ed5b1e3d41c09d4785276a284cec3acb51e9d55"
+                  name: RoleGranted
+              - network: 43113
+                eventEmitted:
+                  contract:
+                    address: "0x3ed5b1e3d41c09d4785276a284cec3acb51e9d55"
+                  name: RoleRevoked
+              - network: 43113
+                eventEmitted:
+                  contract:
+                    address: "0x3ed5b1e3d41c09d4785276a284cec3acb51e9d55"
+                  name: RoleAdminChanged
+              - network: 43113
+                eventEmitted:
+                  contract:
+                    address: "0xf52c4d4f80f570ffda7cb4ee1476125fbcc0fe3c"
+                  name: RoleGranted
+              - network: 43113
+                eventEmitted:
+                  contract:
+                    address: "0xf52c4d4f80f570ffda7cb4ee1476125fbcc0fe3c"
+                  name: RoleRevoked
+              - network: 43113
+                eventEmitted:
+                  contract:
+                    address: "0xf52c4d4f80f570ffda7cb4ee1476125fbcc0fe3c"
+                  name: RoleAdminChanged
+      trackAdminChanges:
+        description: tracking EntryFeeSet, FeeBeneficiarySet, GovernorSet, MinLockAmountChanged, WhitelistedChanged, EjectBufferUpdated, PRVAddressChanged for 2 contracts
+        function: AdminChange:trackAdminChanges
         trigger:
           type: transaction
           transaction:
@@ -46,5 +87,56 @@ actions:
               - network: 43113
                 eventEmitted:
                   contract:
-                    address: "0x18c843b28536847eb0d9a1f995ad126396e966be"
-                  name: RoleRevoked
+                    address: "0x3b3844024353801c993fabedbb2ec9624b2238bc"
+                  name: EntryFeeSet
+              - network: 43113
+                eventEmitted:
+                  contract:
+                    address: "0x3b3844024353801c993fabedbb2ec9624b2238bc"
+                  name: FeeBeneficiarySet
+              - network: 43113
+                eventEmitted:
+                  contract:
+                    address: "0x3b3844024353801c993fabedbb2ec9624b2238bc"
+                  name: GovernorSet
+              - network: 43113
+                eventEmitted:
+                  contract:
+                    address: "0xf52c4d4f80f570ffda7cb4ee1476125fbcc0fe3c"
+                  name: MinLockAmountChanged
+              - network: 43113
+                eventEmitted:
+                  contract:
+                    address: "0xf52c4d4f80f570ffda7cb4ee1476125fbcc0fe3c"
+                  name: WhitelistedChanged
+              - network: 43113
+                eventEmitted:
+                  contract:
+                    address: "0xf52c4d4f80f570ffda7cb4ee1476125fbcc0fe3c"
+                  name: EjectBufferUpdated
+              - network: 43113
+                eventEmitted:
+                  contract:
+                    address: "0xf52c4d4f80f570ffda7cb4ee1476125fbcc0fe3c"
+                  name: PRVAddressChanged
+      trackFunctionReverts:
+        description: tracking reverts for 4 contracts
+        function: FunctionRevert:trackFunctionReverts
+        trigger:
+          type: transaction
+          transaction:
+            status:
+              - mined
+            filters:
+              - network: 43113
+                status: fail
+                to: "0x18c843b28536847eb0d9a1f995ad126396e966be"
+              - network: 43113
+                status: fail
+                to: "0xfe5af8235053d5ee46b4f9e042ae390bcff4ad2d"
+              - network: 43113
+                status: fail
+                to: "0x3ed5b1e3d41c09d4785276a284cec3acb51e9d55"
+              - network: 43113
+                status: fail
+                to: "0xf52c4d4f80f570ffda7cb4ee1476125fbcc0fe3c"

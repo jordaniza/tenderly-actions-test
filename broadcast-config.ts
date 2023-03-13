@@ -3,10 +3,9 @@ import dotenv from "dotenv";
 
 // change if needed
 import Broadcast from "./latest.json";
-import { Config } from "./generator/generate/config";
 
-// convert foundry broadcast log to a config file
-function toConfig(network: number): Config {
+// convert foundry broadcast log to a list of contracts and addresses
+function toConfig(network: number) {
   const contracts: any = Broadcast.transactions
     .map((tx) => {
       return (

@@ -1,6 +1,14 @@
-import { Contract } from "./config";
+import { lookupContractAddress, unique } from "./common";
 import SampleABI from "./SampleABI.json";
+
 type ABI = (typeof SampleABI)["abi"];
+
+export type AddressEventOrFunction = {
+  address: string;
+  proxyAddress?: string;
+  names: string[];
+  abi: ABI;
+};
 
 function header({ project }: { project: string }) {
   return `
@@ -13,63 +21,115 @@ actions:
     specs:`;
 }
 
-function insert({
-  name,
-  network,
-  address,
-  event,
-  contractName,
-  proxyAddress,
-}: {
-  name: string;
-  network: number;
-  address: string;
-  contractName: string;
-  event: string;
-  proxyAddress?: string;
-}): string {
-  const fragment = `
-      ${contractName}-${name}:
-        description: "Activated on ${event}"
-        function: ${contractName}:handle${event}
+function initNewAction({ action, file, description }: { action: string; file: string; description: string }): string {
+  return `
+      ${action}:
+        description: ${description}
+        function: ${file}:${action}
         trigger:
           type: transaction
           transaction:
             status:
               - mined
-            filters:
+            filters:`;
+}
+
+function addEventFilter({
+  network,
+  address,
+  eventOrFunction,
+  proxyAddress,
+}: {
+  network: number;
+  address: string;
+  eventOrFunction: string;
+  proxyAddress?: string;
+}): string {
+  return `
               - network: ${network}
                 eventEmitted:
                   contract:
-                    address: "${proxyAddress ?? address}"
-                  name: ${event}`;
-  return fragment;
+                    address: "${(proxyAddress ?? address).toLowerCase()}"
+                  name: ${eventOrFunction}`;
 }
 
-export const generateYAMLFunctions = ({
-  events,
-  contract,
+function addFunctionRevertFilter({
   network,
+  address,
+  proxyAddress,
 }: {
-  events: ABI;
   network: number;
-  contract: Contract;
-}) =>
-  events.reduce((acc, event) => {
-    return (acc += insert({
-      name: event.name!,
-      network,
-      address: contract.address,
-      contractName: contract.name,
-      event: event.name!,
-      proxyAddress: contract?.proxyAddress,
-    }));
-  }, "");
+  address: string;
+  proxyAddress?: string;
+}): string {
+  return `
+              - network: ${network}
+                status: fail
+                to: "${(proxyAddress ?? address).toLowerCase()}"`;
+}
 
-export const generateFullYAML = ({
-  slugs,
-  project,
+const addEventFilterForContract = ({ names, address, proxyAddress }: AddressEventOrFunction, network: number) =>
+  names.map((name) => addEventFilter({ network, address, eventOrFunction: name, proxyAddress }));
+
+// const addFunctionFilterForContract = (
+//   { names, address, proxyAddress, abi }: AddressEventOrFunction,
+//   network: number
+// ) => {
+//   if (names.length === 0) {
+//     // get all the functions from the abi
+//     names = abi.filter((frag) => frag.type === "function").map((frag) => frag.name!);
+//   }
+//   return names.map((name) => addFunctionRevertFilter({ network, address, eventOrFunction: name, proxyAddress }));
+// };
+
+const addFunctionRevertFilterForContract = ({ address, proxyAddress }: AddressEventOrFunction, network: number) => {
+  return addFunctionRevertFilter({ network, address, proxyAddress });
+};
+
+export function trackMultipleEvents({
+  action,
+  file,
+  network,
+  addressEventOrFunctions,
+  description,
 }: {
-  project: string;
-  slugs: string[];
-}) => slugs.reduce((acc, slug) => acc + slug, header({ project }));
+  action: string;
+  file: string;
+  network: number;
+  addressEventOrFunctions: AddressEventOrFunction[];
+  description: string;
+}): string {
+  // setup the base
+  const base = initNewAction({ action, file, description });
+
+  // the filters for the passed events
+  return addressEventOrFunctions.reduce((acc, contract) => {
+    const fragments = addEventFilterForContract(contract, network);
+    return acc + fragments.join("");
+  }, base);
+}
+
+export function trackMultipleFunctions({
+  action,
+  file,
+  network,
+  addressEventOrFunctions,
+  description,
+}: {
+  action: string;
+  file: string;
+  network: number;
+  addressEventOrFunctions: AddressEventOrFunction[];
+  description: string;
+}): string {
+  // setup the base
+  const base = initNewAction({ action, file, description });
+
+  // add all the filters
+  return addressEventOrFunctions.reduce((acc, contract) => {
+    return acc + addFunctionRevertFilterForContract(contract, network);
+  }, base);
+}
+
+export const generateFullYAML = ({ slugs, project }: { project: string; slugs: string[] }) =>
+  slugs.reduce((acc, slug) => acc + slug, header({ project }));
