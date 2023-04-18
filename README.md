@@ -1,5 +1,10 @@
 # Tenderly Actions Uploader
 
+TODO:
+
+- Track Auxo Minting
+- Track Governance
+
 Tenderly offers Actions as a set of serverless functions which we can trigger in response to certain happenings on EVM chains. This repo streamlines some of the boilerplate in setting up actions across several contracts, specifically:
 
 - Generating a boilerplate function that sends a discord message in response to a contract event

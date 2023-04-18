@@ -1,7 +1,15 @@
 {
-  "0x18c843b28536847eb0d9a1f995ad126396e966be": "StakingManager",
-  "0xfe5af8235053d5ee46b4f9e042ae390bcff4ad2d": "Auxo",
-  "0x3ed5b1e3d41c09d4785276a284cec3acb51e9d55": "TimelockController",
-  "0xf52c4d4f80f570ffda7cb4ee1476125fbcc0fe3c": "TokenLocker",
-  "0x3b3844024353801c993fabedbb2ec9624b2238bc": "PRV"
+  "0xff030228a046f640143dab19be00009606c89b1d": "Auxo",
+  "0xdc554207e4ee62bb05aec99b3d2c6ab2106d6442": "TimelockController",
+  "0x3e70ff09c8f53294ffd389a7fcf7276cc3d92e64": "TokenLocker",
+  "0x663a888854c505e9bce8eef81033aa149186ad4d": "PRVMerkleVerifier",
+  "0x727a21924d9267e49d025a48464324edfcd215b5": "MerkleDistributorARV",
+  "0x06c88c0fd7296717083c0a449c854005218095c5": "MerkleDistributorPRV",
+  "0x096b4f2253a430f33edc9b8e6a8e1d2fb4faa317": "RollStaker",
+  "0xb320fc09b272d1658e99488adc614e4645b1d83c": "Governor",
+  "0xc72fbd264b40d88e445bcf82663d63ff21e722af": "PRV",
+  "0x069c0ed12db7199c1ddaf73b94de75aae8061d33": "ARV",
+  "0xe568b2d96a139126b2042a4e0c9fa1755bf5fb70": "DecayOracle",
+  "0xee2b00267188c60aaf1d46ea5c8f4b36006fa6cc": "PRVRouter",
+  "0x2cd92e3a127a476b14451a62a1bff16f24a3aedd": "ClaimHelper"
 }

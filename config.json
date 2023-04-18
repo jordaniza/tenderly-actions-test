@@ -4,25 +4,43 @@
       "name": "trackRoleChanges",
       "listeners": [
         {
-          "name": "StakingManager",
-          "address": "0xBb6e537776b22ADbC31497434c8Bf62410125af6",
-          "proxyAddress": "0x18c843b28536847eb0d9a1f995ad126396e966be",
-          "events": ["RoleGranted", "RoleRevoked", "RoleAdminChanged"]
-        },
-        {
           "name": "Auxo",
-          "address": "0xFE5AF8235053D5ee46B4f9E042aE390bCfF4Ad2d",
+          "address": "0xff030228a046F640143Dab19be00009606C89B1d",
           "events": ["RoleGranted", "RoleRevoked", "RoleAdminChanged"]
         },
         {
           "name": "TimelockController",
-          "address": "0x3Ed5B1E3d41c09D4785276A284cEc3ACb51E9d55",
+          "address": "0xdC554207e4EE62bB05AeC99b3D2C6ab2106D6442",
           "events": ["RoleGranted", "RoleRevoked", "RoleAdminChanged"]
         },
         {
           "name": "TokenLocker",
-          "address": "0x57b2828E3F649b5Bd5D338478fc7d86d03F53E66",
-          "proxyAddress": "0xf52C4d4f80f570FfdA7cb4ee1476125fbCc0Fe3c",
+          "address": "0xFc64B2a97d466e5176FC02F4E53B8e17ab0ee25A",
+          "proxyAddress": "0x3E70FF09C8f53294FFd389a7fcF7276CC3d92e64",
+          "events": ["RoleGranted", "RoleRevoked", "RoleAdminChanged"]
+        },
+        {
+          "name": "PRVMerkleVerifier",
+          "proxyAddress": "0x663A888854c505E9bcE8eef81033aa149186aD4d",
+          "address": "0x455677Ee701390e582dbc1A8aa4E066D484a4351",
+          "events": ["OwnershipTransferred"]
+        },
+        {
+          "name": "MerkleDistributorARV",
+          "proxyAddress": "0x727a21924D9267E49D025a48464324edfcD215B5",
+          "address": "0xC025b61b123b59A2a83e1afd56e52EE02fDC5b8d",
+          "events": ["OwnershipTransferred"]
+        },
+        {
+          "name": "MerkleDistributorPRV",
+          "proxyAddress": "0x06c88C0FD7296717083C0A449C854005218095c5",
+          "address": "0xF7eE32bE5cDE1FBd7eD5fe9d3324E3556664dc8F",
+          "events": ["OwnershipTransferred"]
+        },
+        {
+          "name": "RollStaker",
+          "proxyAddress": "0x096b4F2253a430F33edc9B8e6A8e1d2fb4faA317",
+          "address": "0x5f4C208C65Dc8C73F49a3600905dA58680Db4626",
           "events": ["RoleGranted", "RoleRevoked", "RoleAdminChanged"]
         }
       ]
@@ -31,15 +49,70 @@
       "name": "trackAdminChanges",
       "listeners": [
         {
-          "name": "PRV",
-          "address": "0x3B3844024353801C993Fabedbb2EC9624B2238BC",
-          "events": ["EntryFeeSet", "FeeBeneficiarySet", "GovernorSet"]
+          "name": "Auxo",
+          "address": "0xff030228a046F640143Dab19be00009606C89B1d",
+          "events": ["Minted"]
+        },
+        {
+          "name": "Governor",
+          "address": "0xB320Fc09B272D1658E99488ADc614E4645B1d83c",
+          "events": [
+            "VotingDelaySet",
+            "VotingPeriodSet",
+            "ProposalThresholdSet",
+            "TimelockChange",
+            "QuorumNumeratorUpdated"
+          ]
+        },
+        {
+          "name": "TimelockController",
+          "address": "0xdC554207e4EE62bB05AeC99b3D2C6ab2106D6442",
+          "events": ["ProposalCanceled"]
         },
         {
           "name": "TokenLocker",
-          "address": "0x57b2828E3F649b5Bd5D338478fc7d86d03F53E66",
-          "proxyAddress": "0xf52C4d4f80f570FfdA7cb4ee1476125fbCc0Fe3c",
-          "events": ["MinLockAmountChanged", "WhitelistedChanged", "EjectBufferUpdated", "PRVAddressChanged"]
+          "address": "0xFc64B2a97d466e5176FC02F4E53B8e17ab0ee25A",
+          "proxyAddress": "0x3E70FF09C8f53294FFd389a7fcF7276CC3d92e64",
+          "events": [
+            "MinLockAmountChanged",
+            "WhitelistedChanged",
+            "EjectBufferUpdated",
+            "PRVAddressChanged",
+            "MigratorUpdated",
+            "MigrationEnabledChanged",
+            "EarlyExitFeeChanged",
+            "PenaltyBeneficiaryChanged"
+          ]
+        },
+        {
+          "name": "MerkleDistributorARV",
+          "proxyAddress": "0x727a21924D9267E49D025a48464324edfcD215B5",
+          "address": "0xC025b61b123b59A2a83e1afd56e52EE02fDC5b8d",
+          "events": ["CreatedWindow", "DeleteWindow", "LockSet"]
+        },
+        {
+          "name": "PRV",
+          "proxyAddress": "0xc72fbD264b40D88E445bcf82663D63FF21e722AF",
+          "address": "0x6683E821554F73929bee47a413AE33E4336690D4",
+          "events": ["FeeSet", "FeeBeneficiarySet", "GovernorSet", "WithdrawalManagerSet"]
+        },
+        {
+          "name": "PRVMerkleVerifier",
+          "proxyAddress": "0x663A888854c505E9bcE8eef81033aa149186aD4d",
+          "address": "0x455677Ee701390e582dbc1A8aa4E066D484a4351",
+          "events": ["Paused", "Unpaused", "CreatedWindow", "DeleteWindow", "PRVSet"]
+        },
+        {
+          "name": "RollStaker",
+          "proxyAddress": "0x096b4F2253a430F33edc9B8e6A8e1d2fb4faA317",
+          "address": "0x5f4C208C65Dc8C73F49a3600905dA58680Db4626",
+          "events": ["NewEpoch", "EmergencyWithdraw", "Paused", "Unpaused"]
+        },
+        {
+          "name": "MerkleDistributorPRV",
+          "proxyAddress": "0x06c88C0FD7296717083C0A449C854005218095c5",
+          "address": "0xF7eE32bE5cDE1FBd7eD5fe9d3324E3556664dc8F",
+          "events": ["CreatedWindow", "DeleteWindow", "LockSet"]
         }
       ]
     },
@@ -47,25 +120,65 @@
       "name": "trackFunctionReverts",
       "listeners": [
         {
-          "name": "StakingManager",
-          "address": "0xBb6e537776b22ADbC31497434c8Bf62410125af6",
-          "proxyAddress": "0x18c843b28536847eb0d9a1f995ad126396e966be"
+          "name": "Auxo",
+          "address": "0xff030228a046F640143Dab19be00009606C89B1d"
         },
         {
-          "name": "Auxo",
-          "address": "0xFE5AF8235053D5ee46B4f9E042aE390bCfF4Ad2d"
+          "name": "Governor",
+          "address": "0xB320Fc09B272D1658E99488ADc614E4645B1d83c"
         },
         {
           "name": "TimelockController",
-          "address": "0x3Ed5B1E3d41c09D4785276A284cEc3ACb51E9d55"
+          "address": "0xdC554207e4EE62bB05AeC99b3D2C6ab2106D6442"
+        },
+        {
+          "name": "ARV",
+          "address": "0x069c0Ed12dB7199c1DdAF73b94de75AAe8061d33"
         },
         {
           "name": "TokenLocker",
-          "address": "0x57b2828E3F649b5Bd5D338478fc7d86d03F53E66",
-          "proxyAddress": "0xf52C4d4f80f570FfdA7cb4ee1476125fbCc0Fe3c"
+          "address": "0xFc64B2a97d466e5176FC02F4E53B8e17ab0ee25A",
+          "proxyAddress": "0x3E70FF09C8f53294FFd389a7fcF7276CC3d92e64"
+        },
+        {
+          "name": "DecayOracle",
+          "address": "0xe568B2d96a139126B2042a4e0c9fA1755bf5FB70"
+        },
+        {
+          "name": "MerkleDistributorARV",
+          "proxyAddress": "0x727a21924D9267E49D025a48464324edfcD215B5",
+          "address": "0xC025b61b123b59A2a83e1afd56e52EE02fDC5b8d"
+        },
+        {
+          "name": "PRV",
+          "proxyAddress": "0xc72fbD264b40D88E445bcf82663D63FF21e722AF",
+          "address": "0x6683E821554F73929bee47a413AE33E4336690D4"
+        },
+        {
+          "name": "PRVMerkleVerifier",
+          "proxyAddress": "0x663A888854c505E9bcE8eef81033aa149186aD4d",
+          "address": "0x455677Ee701390e582dbc1A8aa4E066D484a4351"
+        },
+        {
+          "name": "RollStaker",
+          "proxyAddress": "0x096b4F2253a430F33edc9B8e6A8e1d2fb4faA317",
+          "address": "0x5f4C208C65Dc8C73F49a3600905dA58680Db4626"
+        },
+        {
+          "name": "PRVRouter",
+          "address": "0xEE2b00267188c60aaF1d46EA5c8f4B36006FA6Cc"
+        },
+        {
+          "name": "MerkleDistributorPRV",
+          "proxyAddress": "0x06c88C0FD7296717083C0A449C854005218095c5",
+          "address": "0xF7eE32bE5cDE1FBd7eD5fe9d3324E3556664dc8F"
+        },
+        {
+          "name": "ClaimHelper",
+          "address": "0x2cd92e3a127A476b14451a62A1BFF16f24A3aedd"
         }
       ]
     }
   ],
-  "network": 43113
+  "network": 1
 }

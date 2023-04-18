@@ -7,7 +7,7 @@ export type ABI = (typeof SampleABI)["abi"];
 
 export const notifyDiscord = async (content: string, context: Context) => {
   console.log("Sending to Discord:", `${content}`);
-  const webhookLink = await context.secrets.get("discord.jordanWebhook");
+  const webhookLink = await context.secrets.get("discord.notifyWebhook");
   await axios.post(
     webhookLink,
     { content },
